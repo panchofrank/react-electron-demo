@@ -1,7 +1,7 @@
 // ./public/electron.js
 const path = require('path');
 
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
 
 function createWindow() {
@@ -11,8 +11,11 @@ function createWindow() {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
+      preload: path.join(__dirname, 'preload.js'),
     },
   });
+
+  ipcMain.handle('ping', () => 'pong')
 
   // and load the index.html of the app.
   // win.loadFile("index.html");
