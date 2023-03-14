@@ -1,18 +1,22 @@
 import logo from './logo.svg';
+import ModuleDeployer from './components/ModuleDeployer';
+import ConfigurationForm from './components/ConfigurationForm';
 import './App.css';
 
-const func = async () => {
-  const response = await window.electronWorld.ping()
-  console.log(response) // prints out 'pong'
-}
+
 
 
 function App() {
+  const handleDeployClick = async () => {
+    const response = await window.electronWorld.ping()
+
+  }
   return (
     <div className="App">
       
-      <h1 onClick={func}>Déployeur ForYou</h1>
-
+      <h1>SIRH - Déployeur ForYou</h1>
+      <ConfigurationForm/>
+      <ModuleDeployer onClickDeploy={ handleDeployClick }/>
 
      
     </div>

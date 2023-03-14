@@ -1,8 +1,30 @@
 // ./public/electron.js
+const fs = require('fs');
 const path = require('path');
 
 const { app, BrowserWindow, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
+
+
+function copyFile(src, dest) {
+
+  let readStream = fs.createReadStream(src);
+
+  readStream.once('error', (err) => {
+    console.log(err);
+  });
+
+  readStream.once('end', () => {
+    console.log('done copying');
+  });
+
+  readStream.pipe(fs.createWriteStream(dest));
+}
+
+function copyFiles() {
+  console.log('copying...');
+  copyFile('/home/francois/projects/react-electron-demo/temp/test.jar', '/home/francois/projects/react-electron-demo/temp/test2.jar');
+}
 
 function createWindow() {
   // Create the browser window.
@@ -15,7 +37,7 @@ function createWindow() {
     },
   });
 
-  ipcMain.handle('ping', () => 'pong')
+  ipcMain.handle('copyFiles', copyFiles)
 
   // and load the index.html of the app.
   // win.loadFile("index.html");
