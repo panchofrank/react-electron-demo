@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 const { app, BrowserWindow, ipcMain } = require('electron');
+const config = require('./config');
+
 const isDev = require('electron-is-dev');
 
 
@@ -22,7 +24,7 @@ function copyFile(src, dest) {
 }
 
 function copyFiles() {
-  console.log('copying...');
+
   copyFile('/home/francois/projects/react-electron-demo/temp/test.jar', '/home/francois/projects/react-electron-demo/temp/test2.jar');
 }
 
@@ -38,6 +40,7 @@ function createWindow() {
   });
 
   ipcMain.handle('copyFiles', copyFiles)
+  ipcMain.handle('readModuleConfig', () => config.foryouModules)
 
   // and load the index.html of the app.
   // win.loadFile("index.html");
